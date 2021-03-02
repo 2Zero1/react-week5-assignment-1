@@ -15,7 +15,7 @@ describe('CategoriesContainer', () => {
         { id: 1, name: '한식' },
       ],
       regions:[],
-      selectedCatId: 0,
+      selectedCategoryId: 0,
       selectedRegionId: 0,
     }));
 
@@ -36,7 +36,7 @@ describe('CategoriesContainer', () => {
           { id: 2, name: '일식' },
         ],
         regions:[],
-        selectedCatId: 0,
+        selectedCategoryId: 0,
         selectedRegionId: 0,
       }));
 
@@ -46,7 +46,7 @@ describe('CategoriesContainer', () => {
       fireEvent.click(getByText('일식'));
 
       expect(dispatch).toBeCalledWith({
-        type: 'setSelectedCatId',
+        type: 'setSelectedCategoryId',
         payload: {
           id: 2,
         },

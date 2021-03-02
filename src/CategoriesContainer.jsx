@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Categories from './Categories';
 
 import {
-  setSelectedCatId,
+  setSelectedCategoryId,
   loadRestaurants,
 } from './actions';
 
@@ -14,31 +14,28 @@ export default function CategoriesContainer() {
   const {
     categories,
     regions,
-    selectedCatId,
-    selectedRegionId,
+    selectedCategoryId,
   } = useSelector((state) => (
     {
       categories: state.categories,
       regions: state.regions,
-      selectedCatId: state.selectedCatId,
-      selectedRegionId: state.selectedRegionId,
+      selectedCategoryId: state.selectedCategoryId,
     }
   ));
-  function changeSelectedCatId(id) {
-    dispatch(setSelectedCatId(id));
+  function changeSelectedCategoryId(id) {
+    dispatch(setSelectedCategoryId(id));
     const region = regions.find((v) => v.id === selectedRegionId);
 
     if (region) {
-      dispatch(loadRestaurants(id, regions ?
-        regions.find((v) => v.id === selectedRegionId).name : ''));
+      dispatch(loadRestaurants());
     }
   }
 
   return (
     <Categories
       categories={categories}
-      selectedCatId={selectedCatId}
-      onClick={changeSelectedCatId}
+      selectedCategoryId={selectedCategoryId}
+      onClick={changeSelectedCategoryId}
     />
   );
 }

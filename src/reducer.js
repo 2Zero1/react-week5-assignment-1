@@ -7,20 +7,20 @@ const intialState = {
     address: '',
   },
   categories: [],
-  selectedCatId: 0,
+  selectedCategoryId: 0,
   regions: [],
   selectedRegionId: 0,
 };
 
-export default function reducer(state = intialState, action = {}) {
-  if (action.type === 'setRestaurants') {
+const reducers = {
+  setRestaurants(state, action) {
     const { restaurants } = action.payload;
     return {
       ...state,
       restaurants,
     };
-  }
-  if (action.type === 'changeRestaurantField') {
+  },
+  changeRestaurantField(state, action) {
     const { name, value } = action.payload;
     return {
       ...state,
@@ -29,8 +29,8 @@ export default function reducer(state = intialState, action = {}) {
         [name]: value,
       },
     };
-  }
-  if (action.type === 'addRestaurant') {
+  },
+  addRestaurant(state) {
     const { newId, restaurants, restaurant } = state;
     return {
       ...state,
@@ -42,35 +42,41 @@ export default function reducer(state = intialState, action = {}) {
         address: '',
       },
     };
-  }
-  if (action.type === 'setCategories') {
+  },
+  setCategories(state, action) {
     const { categories } = action.payload;
     return {
       ...state,
       categories,
     };
-  }
-  if (action.type === 'setSelectedCatId') {
+  },
+  setSelectedCategoryId(state, action) {
     const { id } = action.payload;
     return {
       ...state,
-      selectedCatId: id,
+      selectedCategoryId: id,
     };
-  }
-  if (action.type === 'setRegions') {
+  },
+  setRegions(state, action) {
     const { regions } = action.payload;
     return {
       ...state,
       regions,
     };
-  }
-  if (action.type === 'setSelectedRegionId') {
+  },
+  setSelectedRegionId(state, action) {
     const { id } = action.payload;
     return {
       ...state,
       selectedRegionId: id,
     };
-  }
+  },
+}
 
+function defaultReducer(state) {
   return state;
+}
+
+export default function reducer(state = intialState, action = {}) {
+  return (reducers[action.type] || defaultReducer)(state, action);
 }

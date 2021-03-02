@@ -6,17 +6,17 @@ import Regions from './Regions';
 
 import { setSelectedRegionId, loadRestaurants } from './actions';
 
+import { get } from './utils';
+
+
 export default function RegionsContainer() {
   const dispatch = useDispatch();
-  const { regions, selectedCatId, selectedRegionId } = useSelector((state) => ({
-    regions: state.regions,
-    selectedCatId: state.selectedCatId,
-    selectedRegionId: state.selectedRegionId,
-  }));
+  const regions = useSelector(get('regions'));
+  const selectedRegionId = useSelector(get('selectedRegionId'));
 
   function changeSelectedRegionId(id) {
     dispatch(setSelectedRegionId(id));
-    dispatch(loadRestaurants(selectedCatId, regions.find((region) => region.id === id).name));
+    dispatch(loadRestaurants());
   }
 
   return (

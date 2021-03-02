@@ -5,7 +5,7 @@ import {
   changeRestaurantField,
   addRestaurant,
   setCategories,
-  setSelectedCatId,
+  setSelectedCategoryId,
   setRegions,
   setSelectedRegionId,
 } from './actions';
@@ -23,7 +23,7 @@ describe('reducer', () => {
           address: '',
         },
         categories: [],
-        selectedCatId: 0,
+        selectedCategoryId: 0,
         regions: [],
         selectedRegionId: 0,
       };
@@ -113,15 +113,15 @@ describe('reducer', () => {
     });
   });
 
-  describe('setSelectedCatId', () => {
-    it('changes setSelectedCatId', () => {
-      const selectedCatId = 1;
+  describe('setSelectedCategoryId', () => {
+    it('changes setSelectedCategoryId', () => {
+      const selectedCategoryId = 1;
       const initialState = {
-        selectedCatId: 0,
+        selectedCategoryId: 0,
       };
-      const state = reducer(initialState, setSelectedCatId(selectedCatId));
+      const state = reducer(initialState, setSelectedCategoryId(selectedCategoryId));
 
-      expect(state.selectedCatId).toBe(1);
+      expect(state.selectedCategoryId).toBe(1);
     });
   });
 

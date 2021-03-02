@@ -18,4 +18,3 @@ export async function fetchRestaurants(categoryId, regionName) {
   const data = await respone.json();
   return data;
 }
-

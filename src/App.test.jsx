@@ -13,28 +13,13 @@ describe('App', () => {
   const dispatch = jest.fn();
   useDispatch.mockImplementation(() => dispatch);
 
-  it('categories', () => {
+  beforeEach(() => {
     useSelector.mockImplementation((selector) => selector({
       categories: [
         {
           id: 1, name: '분식집',
         },
       ],
-      regions: [],
-      restaurants: [],
-      selectedCatId: 0,
-      selectedRegionId: '',
-    }));
-
-    const { getByText } = render((
-      <App />
-    ));
-
-    expect(getByText('분식집')).not.toBeNull();
-  });
-  it('show regions', () => {
-    useSelector.mockImplementation((selector) => selector({
-      categories: [],
       regions: [
         {
           id: 1, name: '서울',
@@ -44,9 +29,19 @@ describe('App', () => {
         },
       ],
       restaurants: [],
-      selectedCatId: 0,
+      selectedCategoryId: 0,
       selectedRegionId: '',
     }));
+  });
+
+  it('categories', () => {
+    const { getByText } = render((
+      <App />
+    ));
+
+    expect(getByText('분식집')).not.toBeNull();
+  });
+  it('show regions', () => {
 
     const { getByText } = render((
       <App />
@@ -57,25 +52,27 @@ describe('App', () => {
   });
 
   describe('restaurants', () => {
-    it('when category and region are both selected', () => {
-      useSelector.mockImplementation((selector) => selector({
-        restaurants: [
-          {
-            id: 1, name: '양천주가',
-          },
-        ],
-        categories: [],
-        regions: [],
-        restaurant: {},
-        selectedCatId: 1,
-        selectedRegionId: '서울',
-      }));
-
-      const { getByText } = render((
-        <App />
-      ));
-
-      expect(getByText(/양천주가/)).not.toBeNull();
+    context('when category and region are both selected', () => {
+      it('show restaurants list', () => {
+        useSelector.mockImplementation((selector) => selector({
+          restaurants: [
+            {
+              id: 1, name: '양천주가',
+            },
+          ],
+          categories: [],
+          regions: [],
+          restaurant: {},
+          selectedCategoryId: 1,
+          selectedRegionId: '서울',
+        }));
+  
+        const { getByText } = render((
+          <App />
+        ));
+  
+        expect(getByText(/양천주가/)).not.toBeNull();
+      });
     });
   });
 });
